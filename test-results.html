@@ -1,0 +1,2008 @@
+<html><head><meta charset="utf-8"/><title>Test Solution</title><style type="text/css">html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+body {
+  padding: 2rem 1rem;
+  font-size: 0.85rem;
+}
+.jesthtml-content {
+  margin: 0 auto;
+  max-width: 70rem;
+}
+header {
+  display: flex;
+  align-items: center;
+}
+#title {
+  margin: 0;
+  flex-grow: 1;
+}
+#logo {
+  height: 4rem;
+}
+#timestamp {
+  color: #777;
+  margin-top: 0.5rem;
+}
+
+/** SUMMARY */
+#summary {
+  color: #333;
+  margin: 2rem 0;
+  display: flex;
+  font-family: monospace;
+  font-size: 1rem;
+}
+#summary > div {
+  margin-right: 2rem;
+  background: #eee;
+  padding: 1rem;
+  min-width: 15rem;
+}
+#summary > div:last-child {
+  margin-right: 0;
+}
+@media only screen and (max-width: 720px) {
+  #summary {
+    flex-direction: column;
+  }
+  #summary > div {
+    margin-right: 0;
+    margin-top: 2rem;
+  }
+  #summary > div:first-child {
+    margin-top: 0;
+  }
+}
+
+.summary-total {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.summary-passed {
+  color: #4f8a10;
+  border-left: 0.4rem solid #4f8a10;
+  padding-left: 0.5rem;
+}
+.summary-failed,
+.summary-obsolete-snapshots {
+  color: #d8000c;
+  border-left: 0.4rem solid #d8000c;
+  padding-left: 0.5rem;
+}
+.summary-pending {
+  color: #9f6000;
+  border-left: 0.4rem solid #9f6000;
+  padding-left: 0.5rem;
+}
+.summary-empty {
+  color: #999;
+  border-left: 0.4rem solid #999;
+}
+
+.test-result {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+.test-result:last-child {
+  border: 0;
+}
+.test-result.passed {
+  background-color: #dff2bf;
+  color: #4f8a10;
+}
+.test-result.failed {
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+.test-result.pending {
+  background-color: #ffdf61;
+  color: #9f6000;
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+}
+.test-suitename {
+  width: 20%;
+  text-align: left;
+  font-weight: bold;
+  word-break: break-word;
+}
+.test-title {
+  width: 40%;
+  text-align: left;
+  font-style: italic;
+}
+.test-status {
+  width: 20%;
+  text-align: right;
+}
+.test-duration {
+  width: 10%;
+  text-align: right;
+  font-size: 0.75rem;
+}
+
+.failureMessages {
+  padding: 0 1rem;
+  margin-top: 1rem;
+  border-top: 1px dashed #d8000c;
+}
+.failureMessages.suiteFailure {
+  border-top: none;
+}
+.failureMsg {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.suite-container {
+  margin-bottom: 2rem;
+}
+.suite-container > input[type="checkbox"] {
+  position: absolute;
+  left: -100vw;
+}
+.suite-container label {
+  display: block;
+}
+.suite-container .suite-tests {
+  overflow-y: hidden;
+  height: 0;
+}
+.suite-container > input[type="checkbox"]:checked ~ .suite-tests {
+  height: auto;
+  overflow: visible;
+}
+.suite-info {
+  padding: 1rem;
+  background-color: #eee;
+  color: #777;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.suite-info:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+.suite-info .suite-path {
+  word-break: break-all;
+  flex-grow: 1;
+  font-family: monospace;
+  font-size: 1rem;
+}
+.suite-info .suite-time {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.75rem;
+}
+.suite-info .suite-time.warn {
+  background-color: #d8000c;
+  color: #fff;
+}
+.suite-info:before {
+  content: "\2303";
+  display: inline-block;
+  margin-right: 0.5rem;
+  transform: rotate(0deg);
+}
+.suite-container > input[type="checkbox"]:checked ~ label .suite-info:before {
+  transform: rotate(180deg);
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: #efefef;
+}
+.suite-consolelog-header {
+  font-weight: bold;
+}
+.suite-consolelog-item {
+  padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-consolelog-item-origin {
+  color: #777;
+  font-weight: bold;
+}
+.suite-consolelog-item-message {
+  color: #000;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+
+/* OBSOLETE SNAPSHOTS */
+.suite-obsolete-snapshots {
+  margin-bottom: 0.25rem;
+  padding: 1rem;
+  background-color: #ffbaba;
+  color: #d8000c;
+}
+.suite-obsolete-snapshots-header {
+  font-weight: bold;
+}
+.suite-obsolete-snapshots-item {
+  padding: 0.5rem;
+}
+.suite-obsolete-snapshots-item pre {
+  margin: 0.5rem 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.suite-obsolete-snapshots-item-message {
+  color: #000;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+</style></head><body><div class="jesthtml-content"><header><h1 id="title">Test Solution</h1></header><div id="metadata-container"><div id="timestamp">Started: 2024-02-21 12:00:20</div><div id="summary"><div id="suite-summary"><div class="summary-total">Suites (1)</div><div class="summary-passed  summary-empty">0 passed</div><div class="summary-failed ">1 failed</div><div class="summary-pending  summary-empty">0 pending</div></div><div id="test-summary"><div class="summary-total">Tests (39)</div><div class="summary-passed ">32 passed</div><div class="summary-failed ">7 failed</div><div class="summary-pending  summary-empty">0 pending</div></div></div></div><div id="suite-1" class="suite-container"><input id="collapsible-0" type="checkbox" class="toggle" checked="checked"/><label for="collapsible-0"><div class="suite-info"><div class="suite-path">C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js</div><div class="suite-time">0.579s</div></div></label><div class="suite-tests"><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "getAllDirectors"</div><div class="test-title">should be declared</div><div class="test-status">passed</div><div class="test-duration">0.006s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "getAllDirectors"</div><div class="test-title">should return an array</div><div class="test-status">passed</div><div class="test-duration">0.026s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "getAllDirectors"</div><div class="test-title">should return a new array, not update the original one</div><div class="test-status">passed</div><div class="test-duration">0.002s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "getAllDirectors"</div><div class="test-title">should return a new array with the same length as the original one</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "getMoviesFromDirector"</div><div class="test-title">should be declared</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "getMoviesFromDirector"</div><div class="test-title">should return an array</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "getMoviesFromDirector"</div><div class="test-title">should return a new array, not update the original one</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "getMoviesFromDirector"</div><div class="test-title">should return a new array with the movies from director</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "moviesAverageOfDirector"</div><div class="test-title">should be declared</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "moviesAverageOfDirector"</div><div class="test-title">should return a number</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "moviesAverageOfDirector"</div><div class="test-title">should be different from NaN</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "moviesAverageOfDirector"</div><div class="test-title"> should return the average score of movies selecting only the director films. With 2 decimals! </div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderAlphabetically"</div><div class="test-title">should be declared</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderAlphabetically"</div><div class="test-title">should return an array</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderAlphabetically"</div><div class="test-title">should not mutate the original array</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderAlphabetically"</div><div class="test-title">should only return the title of the movies, each value should be a string</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderAlphabetically"</div><div class="test-title">should return all of items when the array passed has fewer than 20 items</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderAlphabetically"</div><div class="test-title">should order them alphabetically.</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderAlphabetically"</div><div class="test-title">should return the top 20 after ordering them alphabetically.</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderByYear"</div><div class="test-title">should be declared</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderByYear"</div><div class="test-title">should return an array</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderByYear"</div><div class="test-title">should return a new array</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderByYear"</div><div class="test-title">should return the element in a single element array</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderByYear"</div><div class="test-title">should return the new array in ascending order</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "orderByYear"</div><div class="test-title">should order movies with the same year by their title, alphabetically</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "moviesAverageByCategory"</div><div class="test-title">should be declared</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "moviesAverageByCategory"</div><div class="test-title">should return a number</div><div class="test-status">passed</div><div class="test-duration">0.003s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "moviesAverageByCategory"</div><div class="test-title"> should return the average score of movies selecting only one genre. With 2 decimals! </div><div class="test-status">passed</div><div class="test-duration">0.004s</div></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "hoursToMinutes"</div><div class="test-title">should be declared</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result failed"><div class="test-info"><div class="test-suitename">Function "hoursToMinutes"</div><div class="test-title">should return an array</div><div class="test-status">failed</div><div class="test-duration">0.002s</div></div><div class="failureMessages"> <pre class="failureMsg">Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at Object.toBe (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:848:53)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "hoursToMinutes"</div><div class="test-title">should return a new array, not update the original one</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result failed"><div class="test-info"><div class="test-suitename">Function "hoursToMinutes"</div><div class="test-title">should return an array of movies with duration as a number</div><div class="test-status">failed</div><div class="test-duration">0s</div></div><div class="failureMessages"> <pre class="failureMsg">TypeError: Cannot read properties of undefined (reading '0')
+    at Object.&lt;anonymous&gt; (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:856:41)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre></div></div><div class="test-result failed"><div class="test-info"><div class="test-suitename">Function "hoursToMinutes"</div><div class="test-title">should return an array of movies with the correct duration for a 31 minute movie</div><div class="test-status">failed</div><div class="test-duration">0s</div></div><div class="failureMessages"> <pre class="failureMsg">TypeError: Cannot read properties of undefined (reading '0')
+    at Object.&lt;anonymous&gt; (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:861:36)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre></div></div><div class="test-result failed"><div class="test-info"><div class="test-suitename">Function "hoursToMinutes"</div><div class="test-title">should return an array of movies with the correct duration for a 341 minute movie</div><div class="test-status">failed</div><div class="test-duration">0s</div></div><div class="failureMessages"> <pre class="failureMsg">TypeError: Cannot read properties of undefined (reading '0')
+    at Object.&lt;anonymous&gt; (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:866:36)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre></div></div><div class="test-result failed"><div class="test-info"><div class="test-suitename">Function "hoursToMinutes"</div><div class="test-title">should return an array of movies with the correct duration for a 2 hour movie</div><div class="test-status">failed</div><div class="test-duration">0s</div></div><div class="failureMessages"> <pre class="failureMsg">TypeError: Cannot read properties of undefined (reading '0')
+    at Object.&lt;anonymous&gt; (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:871:36)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "bestFilmOfYear"</div><div class="test-title">should be declared</div><div class="test-status">passed</div><div class="test-duration">0.001s</div></div></div><div class="test-result failed"><div class="test-info"><div class="test-suitename">Function "bestFilmOfYear"</div><div class="test-title">should return an array</div><div class="test-status">failed</div><div class="test-duration">0s</div></div><div class="failureMessages"> <pre class="failureMsg">Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at Object.toBe (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:882:59)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre></div></div><div class="test-result passed"><div class="test-info"><div class="test-suitename">Function "bestFilmOfYear"</div><div class="test-title">should return a new array, not update the original one</div><div class="test-status">passed</div><div class="test-duration">0s</div></div></div><div class="test-result failed"><div class="test-info"><div class="test-suitename">Function "bestFilmOfYear"</div><div class="test-title">should return the best film of a year, searching in an array</div><div class="test-status">failed</div><div class="test-duration">0.001s</div></div><div class="failureMessages"> <pre class="failureMsg">Error: expect(received).toEqual(expected) // deep equality
+
+Expected: [{"director": "Stanley Kubrick", "duration": "1h 28min", "genre": ["Drama", "War"], "score": 8.4, "title": "Film2", "year": 1957}]
+Received: undefined
+    at Object.toEqual (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:916:43)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre></div></div></div><div class="suite-consolelog"><div class="suite-consolelog-header">Console Log</div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:7:11)
+    at Object.getAllDirectors (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:20:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">EXERCICE 1 -&gt; [
+  'Frank Darabont',
+  'Francis Ford Coppola',
+  'Francis Ford Coppola',
+  'Christopher Nolan',
+  'Sidney Lumet',
+  'Steven Spielberg',
+  'Quentin Tarantino',
+  'Peter Jackson',
+  'Sergio Leone',
+  'David Fincher',
+  'Peter Jackson',
+  'Robert Zemeckis',
+  'Irvin Kershner',
+  'Christopher Nolan',
+  'Peter Jackson',
+  'Milos Forman',
+  'Martin Scorsese',
+  'Lana Wachowski',
+  'Akira Kurosawa',
+  'George Lucas',
+  'Fernando Meirelles',
+  'David Fincher',
+  'Jonathan Demme',
+  'Frank Capra',
+  'Roberto Benigni',
+  'Bryan Singer',
+  'Luc Besson',
+  'Steven Spielberg',
+  'Hayao Miyazaki',
+  'Tony Kaye',
+  'Sergio Leone',
+  'Christopher Nolan',
+  'Alfred Hitchcock',
+  'Frank Darabont',
+  'Michael Curtiz',
+  'Charles Chaplin',
+  'Olivier Nakache',
+  'Charles Chaplin',
+  'Steven Spielberg',
+  'Roman Polanski',
+  'Martin Scorsese',
+  'Alfred Hitchcock',
+  'James Cameron',
+  'Robert Zemeckis',
+  'Damien Chazelle',
+  'Ridley Scott',
+  'Christopher Nolan',
+  'Roger Allers',
+  'Christopher Nolan',
+  'Francis Ford Coppola',
+  'Ridley Scott',
+  'Charles Chaplin',
+  'Billy Wilder',
+  'Stanley Kubrick',
+  'Giuseppe Tornatore',
+  'Florian Henckel von Donnersmarck',
+  'Isao Takahata',
+  'Denis Villeneuve',
+  'Stanley Kubrick',
+  'Quentin Tarantino',
+  'Stanley Kubrick',
+  'Andrew Stanton',
+  'Sam Mendes',
+  'Christopher Nolan',
+  'Hayao Miyazaki',
+  'Chan-wook Park',
+  'James Cameron',
+  'Billy Wilder',
+  'Sergio Leone',
+  'Wolfgang Petersen',
+  'Orson Welles',
+  'Nitesh Tiwari',
+  'Alfred Hitchcock',
+  'Alfred Hitchcock',
+  'Richard Marquand',
+  'Mel Gibson',
+  'Quentin Tarantino',
+  'Fritz Lang',
+  'Darren Aronofsky',
+  'Jean-Pierre Jeunet',
+  'Aamir Khan',
+  'Stanley Kubrick',
+  'Makoto Shinkai',
+  'David Lean',
+  'Billy Wilder',
+  'Milos Forman',
+  'Michel Gondry',
+  'Martin Scorsese',
+  'Robert Mulligan',
+  'Christopher Nolan',
+  'Stanley Kubrick',
+  'Stanley Kubrick',
+  'Stanley Donen',
+  'Lee Unkrich',
+  'John Lasseter',
+  'George Roy Hill',
+  'Rajkumar Hirani',
+  'Vittorio De Sica',
+  'Quentin Tarantino',
+  'Charles Chaplin',
+  ... 150 more items
+]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:7:11)
+    at Object.getAllDirectors (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:24:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">EXERCICE 1 -&gt; [
+  'Frank Darabont',
+  'Francis Ford Coppola',
+  'Francis Ford Coppola',
+  'Christopher Nolan',
+  'Sidney Lumet',
+  'Steven Spielberg',
+  'Quentin Tarantino',
+  'Peter Jackson',
+  'Sergio Leone',
+  'David Fincher',
+  'Peter Jackson',
+  'Robert Zemeckis',
+  'Irvin Kershner',
+  'Christopher Nolan',
+  'Peter Jackson',
+  'Milos Forman',
+  'Martin Scorsese',
+  'Lana Wachowski',
+  'Akira Kurosawa',
+  'George Lucas',
+  'Fernando Meirelles',
+  'David Fincher',
+  'Jonathan Demme',
+  'Frank Capra',
+  'Roberto Benigni',
+  'Bryan Singer',
+  'Luc Besson',
+  'Steven Spielberg',
+  'Hayao Miyazaki',
+  'Tony Kaye',
+  'Sergio Leone',
+  'Christopher Nolan',
+  'Alfred Hitchcock',
+  'Frank Darabont',
+  'Michael Curtiz',
+  'Charles Chaplin',
+  'Olivier Nakache',
+  'Charles Chaplin',
+  'Steven Spielberg',
+  'Roman Polanski',
+  'Martin Scorsese',
+  'Alfred Hitchcock',
+  'James Cameron',
+  'Robert Zemeckis',
+  'Damien Chazelle',
+  'Ridley Scott',
+  'Christopher Nolan',
+  'Roger Allers',
+  'Christopher Nolan',
+  'Francis Ford Coppola',
+  'Ridley Scott',
+  'Charles Chaplin',
+  'Billy Wilder',
+  'Stanley Kubrick',
+  'Giuseppe Tornatore',
+  'Florian Henckel von Donnersmarck',
+  'Isao Takahata',
+  'Denis Villeneuve',
+  'Stanley Kubrick',
+  'Quentin Tarantino',
+  'Stanley Kubrick',
+  'Andrew Stanton',
+  'Sam Mendes',
+  'Christopher Nolan',
+  'Hayao Miyazaki',
+  'Chan-wook Park',
+  'James Cameron',
+  'Billy Wilder',
+  'Sergio Leone',
+  'Wolfgang Petersen',
+  'Orson Welles',
+  'Nitesh Tiwari',
+  'Alfred Hitchcock',
+  'Alfred Hitchcock',
+  'Richard Marquand',
+  'Mel Gibson',
+  'Quentin Tarantino',
+  'Fritz Lang',
+  'Darren Aronofsky',
+  'Jean-Pierre Jeunet',
+  'Aamir Khan',
+  'Stanley Kubrick',
+  'Makoto Shinkai',
+  'David Lean',
+  'Billy Wilder',
+  'Milos Forman',
+  'Michel Gondry',
+  'Martin Scorsese',
+  'Robert Mulligan',
+  'Christopher Nolan',
+  'Stanley Kubrick',
+  'Stanley Kubrick',
+  'Stanley Donen',
+  'Lee Unkrich',
+  'John Lasseter',
+  'George Roy Hill',
+  'Rajkumar Hirani',
+  'Vittorio De Sica',
+  'Quentin Tarantino',
+  'Charles Chaplin',
+  ... 150 more items
+]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:7:11)
+    at Object.getAllDirectors (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:46:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">EXERCICE 1 -&gt; [ 'Stanley Kubrick', 'Quentin Tarantino' ]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:25:11)
+    at Object.moviesAverageOfDirector (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:107:19)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">8.65</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:26:11)
+    at Object.moviesAverageOfDirector (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:107:19)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">[
+  {
+    title: 'Forrest Gump',
+    year: 1994,
+    director: 'Robert Zemeckis',
+    duration: '2h 22min',
+    genre: [ 'Comedy', 'Drama', 'Romance' ],
+    score: 8.8
+  },
+  {
+    title: 'Back to the Future',
+    year: 1985,
+    director: 'Robert Zemeckis',
+    duration: '1h 56min',
+    genre: [ 'Adventure', 'Comedy', 'Sci-Fi' ],
+    score: 8.5
+  }
+]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:25:11)
+    at Object.moviesAverageOfDirector (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:111:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">8.65</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:26:11)
+    at Object.moviesAverageOfDirector (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:111:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">[
+  {
+    title: 'Forrest Gump',
+    year: 1994,
+    director: 'Robert Zemeckis',
+    duration: '2h 22min',
+    genre: [ 'Comedy', 'Drama', 'Romance' ],
+    score: 8.8
+  },
+  {
+    title: 'Back to the Future',
+    year: 1985,
+    director: 'Robert Zemeckis',
+    duration: '1h 56min',
+    genre: [ 'Adventure', 'Comedy', 'Sci-Fi' ],
+    score: 8.5
+  }
+]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:25:11)
+    at Object.moviesAverageOfDirector (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:115:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">8.65</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:26:11)
+    at Object.moviesAverageOfDirector (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:115:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">[
+  {
+    title: 'Forrest Gump',
+    year: 1994,
+    director: 'Robert Zemeckis',
+    duration: '2h 22min',
+    genre: [ 'Comedy', 'Drama', 'Romance' ],
+    score: 8.8
+  },
+  {
+    title: 'Back to the Future',
+    year: 1985,
+    director: 'Robert Zemeckis',
+    duration: '1h 56min',
+    genre: [ 'Adventure', 'Comedy', 'Sci-Fi' ],
+    score: 8.5
+  }
+]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:67:11)
+    at Object.orderAlphabetically (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:152:19)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">--&gt; este []</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:67:11)
+    at Object.orderAlphabetically (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:157:5)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">--&gt; este [ 'abc', 'xyz' ]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:67:11)
+    at Object.orderAlphabetically (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:162:19)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">--&gt; este [ 'aab' ]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:67:11)
+    at Object.orderAlphabetically (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:167:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">--&gt; este [ 'aab', 'acb', 'bab' ]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:67:11)
+    at Object.orderAlphabetically (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:179:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">--&gt; este [ 'aaa', 'aab', 'abb', 'abc', 'acb' ]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:67:11)
+    at Object.orderAlphabetically (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:228:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">--&gt; este [
+  'aaa', 'aab', 'acb', 'acs',
+  'afb', 'agb', 'anc', 'apo',
+  'bab', 'bbb', 'bbt', 'bca',
+  'bvc', 'ccc', 'cdf', 'era',
+  'ert', 'frt', 'gda', 'gha'
+]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:103:13)
+    at Object.moviesAverageByCategory (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:301:19)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">...is Thriller veamos [
+  {
+    title: 'The Dark Knight',
+    year: 2008,
+    director: 'Christopher Nolan',
+    duration: '2h 32min',
+    genre: [ 'Action', 'Crime', 'Drama', 'Thriller' ],
+    score: 9
+  },
+  {
+    title: 'Inception',
+    year: 2010,
+    director: 'Christopher Nolan',
+    duration: '2h 28min',
+    genre: [ 'Action', 'Adventure', 'Sci-Fi', 'Thriller' ],
+    score: 8.8
+  },
+  {
+    title: 'Se7en',
+    year: 1995,
+    director: 'David Fincher',
+    duration: '2h 7min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.6
+  },
+  {
+    title: 'The Silence of the Lambs',
+    year: 1991,
+    director: 'Jonathan Demme',
+    duration: '1h 58min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.6
+  },
+  {
+    title: 'The Usual Suspects',
+    year: 1995,
+    director: 'Bryan Singer',
+    duration: '1h 46min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.6
+  },
+  {
+    title: 'Léon',
+    year: 1988,
+    director: 'Luc Besson',
+    duration: '1h 50min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.6
+  },
+  {
+    title: 'Psycho',
+    year: 1960,
+    director: 'Alfred Hitchcock',
+    duration: '1h 49min',
+    genre: [ 'Horror', 'Mystery', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'The Departed',
+    year: 2006,
+    director: 'Martin Scorsese',
+    duration: '2h 31min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'Rear Window',
+    year: 1954,
+    director: 'Alfred Hitchcock',
+    duration: '1h 52min',
+    genre: [ 'Mystery', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'Terminator 2: Judgment Day',
+    year: 1991,
+    director: 'James Cameron',
+    duration: '2h 17min',
+    genre: [ 'Action', 'Sci-Fi', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'The Prestige',
+    year: 1994,
+    director: 'Christopher Nolan',
+    duration: '2h 10min',
+    genre: [ 'Drama', 'Mystery', 'Sci-Fi', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'Memento',
+    year: 2000,
+    director: 'Christopher Nolan',
+    duration: '1h 53min',
+    genre: [ 'Mystery', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'Das Leben der Anderen',
+    year: 2006,
+    director: 'Florian Henckel von Donnersmarck',
+    duration: '2h 17min',
+    genre: [ 'Drama', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'Blade Runner 2049',
+    year: 2017,
+    director: 'Denis Villeneuve',
+    duration: '2h 44min',
+    genre: [ 'Mystery', 'Sci-Fi', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'The Dark Knight Rises',
+    year: 2012,
+    director: 'Christopher Nolan',
+    duration: '2h 44min',
+    genre: [ 'Action', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Oldeuboi',
+    year: 2003,
+    director: 'Chan-wook Park',
+    duration: '2h',
+    genre: [ 'Action', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Aliens',
+    year: 1986,
+    director: 'James Cameron',
+    duration: '2h 17min',
+    genre: [ 'Action', 'Adventure', 'Sci-Fi', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Witness for the Prosecution',
+    year: 1957,
+    director: 'Billy Wilder',
+    duration: '1h 56min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Das Boot',
+    year: 1981,
+    director: 'Wolfgang Petersen',
+    duration: '2h 29min',
+    genre: [ 'Adventure', 'Drama', 'Thriller', 'War' ],
+    score: 8.4
+  },
+  {
+    title: 'Vertigo',
+    year: 2001,
+    director: 'Alfred Hitchcock',
+    duration: '2h 8min',
+    genre: [ 'Mystery', 'Romance', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'North by Northwest',
+    year: 1959,
+    director: 'Alfred Hitchcock',
+    duration: '2h 16min',
+    genre: [ 'Action', 'Adventure', 'Mystery', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Reservoir Dogs',
+    year: 1992,
+    director: 'Quentin Tarantino',
+    duration: '1h 39min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'M',
+    year: 1931,
+    director: 'Fritz Lang',
+    duration: '1h 57min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Double Indemnity',
+    year: 1944,
+    director: 'Billy Wilder',
+    duration: '1h 47min',
+    genre: [ 'Crime', 'Drama', 'Film-Noir', 'Mystery', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'Dunkirk',
+    year: 2017,
+    director: 'Christopher Nolan',
+    duration: '1h 46min',
+    genre: [ 'Action', 'Drama', 'History', 'Thriller', 'War' ],
+    score: 8.3
+  },
+  {
+    title: 'L.A. Confidential',
+    year: 1997,
+    director: 'Curtis Hanson',
+    duration: '2h 18min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'Yôjinbô',
+    year: 1961,
+    director: 'Akira Kurosawa',
+    duration: '1h 50min',
+    genre: [ 'Action', 'Drama', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'Batman Begins',
+    year: 2005,
+    director: 'Christopher Nolan',
+    duration: '2h 32min',
+    genre: [ 'Action', 'Adventure', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'Die Hard',
+    year: 1988,
+    director: 'John McTiernan',
+    duration: '2h 11min',
+    genre: [ 'Action', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Heat',
+    year: 1995,
+    director: 'Michael Mann',
+    duration: '2h 50min',
+    genre: [ 'Action', 'Crime', 'Drama', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'The Third Man',
+    year: 1949,
+    director: 'Carol Reed',
+    duration: '1h 44min',
+    genre: [ 'Film-Noir', 'Mystery', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'The Great Escape',
+    year: 1963,
+    director: 'John Sturges',
+    duration: '2h 52min',
+    genre: [ 'Adventure', 'Drama', 'History', 'Thriller', 'War' ],
+    score: 8.2
+  },
+  {
+    title: 'Chinatown',
+    year: 1974,
+    director: 'Roman Polanski',
+    duration: '2h 10min',
+    genre: [ 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'El secreto de sus ojos',
+    year: 2009,
+    director: 'Juan José Campanella',
+    duration: '2h 9min',
+    genre: [ 'Drama', 'Mystery', 'Romance', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'On the Waterfront',
+    year: 1954,
+    director: 'Elia Kazan',
+    duration: '1h 48min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Blade Runner',
+    year: 1982,
+    director: 'Ridley Scott',
+    duration: '1h 57min',
+    genre: [ 'Sci-Fi', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'V for Vendetta',
+    year: 2005,
+    director: 'James McTeigue',
+    duration: '2h 12min',
+    genre: [ 'Action', 'Drama', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Dial M for Murder',
+    year: 1954,
+    director: 'Alfred Hitchcock',
+    duration: '1h 45min',
+    genre: [ 'Crime', 'Film-Noir', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Fargo',
+    year: 1996,
+    director: 'Joel Coen',
+    duration: '1h 38min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'The Sixth Sense',
+    year: 1999,
+    director: 'M. Night Shyamalan',
+    duration: '1h 47min',
+    genre: [ 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'No Country for Old Men',
+    year: 2007,
+    director: 'Ethan Coen',
+    duration: '2h 2min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Eskiya',
+    year: 1996,
+    director: 'Yavuz Turgul',
+    duration: '2h 8min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Rebecca',
+    year: 1940,
+    director: 'Alfred Hitchcock',
+    duration: '2h 10min',
+    genre: [ 'Drama', 'Mystery', 'Romance', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Kill Bill: Vol. 1',
+    year: 2003,
+    director: 'Quentin Tarantino',
+    duration: '1h 51min',
+    genre: [ 'Action', 'Crime', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Gone Girl',
+    year: 2014,
+    director: 'David Fincher',
+    duration: '2h 29min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Shutter Island',
+    year: 2010,
+    director: 'Martin Scorsese',
+    duration: '2h 18min',
+    genre: [ 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Logan',
+    year: 2017,
+    director: 'James Mangold',
+    duration: '2h 17min',
+    genre: [ 'Action', 'Drama', 'Sci-Fi', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Relatos salvajes',
+    year: 2014,
+    director: 'Damián Szifron',
+    duration: '2h 2min',
+    genre: [ 'Comedy', 'Drama', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'A Wednesday',
+    year: 2008,
+    director: 'Neeraj Pandey',
+    duration: '1h 44min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'Le salaire de la peur',
+    year: 1953,
+    director: 'Henri-Georges Clouzot',
+    duration: '2h 11min',
+    genre: [ 'Adventure', 'Drama', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Persona',
+    year: 1966,
+    director: 'Ingmar Bergman',
+    duration: '1h 25min',
+    genre: [ 'Drama', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Salinui chueok',
+    year: 2003,
+    director: 'Joon-ho Bong',
+    duration: '2h 11min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Mad Max: Fury Road',
+    year: 2015,
+    director: 'George Miller',
+    duration: '2h',
+    genre: [ 'Action', 'Adventure', 'Sci-Fi', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Jurassic Park',
+    year: 2000,
+    director: 'Steven Spielberg',
+    duration: '2h 7min',
+    genre: [ 'Adventure', 'Sci-Fi', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Amores perros',
+    year: 2000,
+    director: 'Alejandro González Iñárritu',
+    duration: '2h 34min',
+    genre: [ 'Drama', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Prisoners',
+    year: 2013,
+    director: 'Denis Villeneuve',
+    duration: '2h 33min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Touch of Evil',
+    year: 1958,
+    director: 'Orson Welles',
+    duration: '1h 35min',
+    genre: [ 'Crime', 'Drama', 'Film-Noir', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Les diaboliques',
+    year: 1955,
+    director: 'Henri-Georges Clouzot',
+    duration: '1h 57min',
+    genre: [ 'Crime', 'Drama', 'Horror', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Donnie Darko',
+    year: 2001,
+    director: 'Richard Kelly',
+    duration: '1h 53min',
+    genre: [ 'Drama', 'Sci-Fi', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'The Bourne Ultimatum',
+    year: 2007,
+    director: 'Paul Greengrass',
+    duration: '1h 55min',
+    genre: [ 'Action', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Jaws',
+    year: 1975,
+    director: 'Steven Spielberg',
+    duration: '2h 4min',
+    genre: [ 'Adventure', 'Drama', 'Thriller' ],
+    score: 8
+  },
+  {
+    title: 'Twelve Monkeys',
+    year: 1995,
+    director: 'Terry Gilliam',
+    duration: '2h 9min',
+    genre: [ 'Mystery', 'Sci-Fi', 'Thriller' ],
+    score: 8
+  },
+  {
+    title: 'Mou gaan dou',
+    year: 2002,
+    director: 'Wai-Keung Lau',
+    duration: '1h 41min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Sholay',
+    year: 1975,
+    director: 'Ramesh Sippy',
+    duration: '3h 18min',
+    genre: [ 'Action', 'Adventure', 'Comedy', 'Drama', 'Musical', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Ah-ga-ssi',
+    year: 2016,
+    director: 'Chan-wook Park',
+    duration: '2h 24min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Romance', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Dog Day Afternoon',
+    year: 1975,
+    director: 'Sidney Lumet',
+    duration: '2h 5min',
+    genre: [ 'Biography', 'Crime', 'Drama', 'Thriller' ],
+    score: 8
+  }
+]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:108:13)
+    at Object.moviesAverageByCategory (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:301:19)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">...AveragewithGenSum 8.28</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:109:13)
+    at Object.moviesAverageByCategory (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:301:19)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">--GenSum 546.7000000000005</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:103:13)
+    at Object.moviesAverageByCategory (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:305:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">...is Thriller veamos [
+  {
+    title: 'The Dark Knight',
+    year: 2008,
+    director: 'Christopher Nolan',
+    duration: '2h 32min',
+    genre: [ 'Action', 'Crime', 'Drama', 'Thriller' ],
+    score: 9
+  },
+  {
+    title: 'Inception',
+    year: 2010,
+    director: 'Christopher Nolan',
+    duration: '2h 28min',
+    genre: [ 'Action', 'Adventure', 'Sci-Fi', 'Thriller' ],
+    score: 8.8
+  },
+  {
+    title: 'Se7en',
+    year: 1995,
+    director: 'David Fincher',
+    duration: '2h 7min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.6
+  },
+  {
+    title: 'The Silence of the Lambs',
+    year: 1991,
+    director: 'Jonathan Demme',
+    duration: '1h 58min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.6
+  },
+  {
+    title: 'The Usual Suspects',
+    year: 1995,
+    director: 'Bryan Singer',
+    duration: '1h 46min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.6
+  },
+  {
+    title: 'Léon',
+    year: 1988,
+    director: 'Luc Besson',
+    duration: '1h 50min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.6
+  },
+  {
+    title: 'Psycho',
+    year: 1960,
+    director: 'Alfred Hitchcock',
+    duration: '1h 49min',
+    genre: [ 'Horror', 'Mystery', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'The Departed',
+    year: 2006,
+    director: 'Martin Scorsese',
+    duration: '2h 31min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'Rear Window',
+    year: 1954,
+    director: 'Alfred Hitchcock',
+    duration: '1h 52min',
+    genre: [ 'Mystery', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'Terminator 2: Judgment Day',
+    year: 1991,
+    director: 'James Cameron',
+    duration: '2h 17min',
+    genre: [ 'Action', 'Sci-Fi', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'The Prestige',
+    year: 1994,
+    director: 'Christopher Nolan',
+    duration: '2h 10min',
+    genre: [ 'Drama', 'Mystery', 'Sci-Fi', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'Memento',
+    year: 2000,
+    director: 'Christopher Nolan',
+    duration: '1h 53min',
+    genre: [ 'Mystery', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'Das Leben der Anderen',
+    year: 2006,
+    director: 'Florian Henckel von Donnersmarck',
+    duration: '2h 17min',
+    genre: [ 'Drama', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'Blade Runner 2049',
+    year: 2017,
+    director: 'Denis Villeneuve',
+    duration: '2h 44min',
+    genre: [ 'Mystery', 'Sci-Fi', 'Thriller' ],
+    score: 8.5
+  },
+  {
+    title: 'The Dark Knight Rises',
+    year: 2012,
+    director: 'Christopher Nolan',
+    duration: '2h 44min',
+    genre: [ 'Action', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Oldeuboi',
+    year: 2003,
+    director: 'Chan-wook Park',
+    duration: '2h',
+    genre: [ 'Action', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Aliens',
+    year: 1986,
+    director: 'James Cameron',
+    duration: '2h 17min',
+    genre: [ 'Action', 'Adventure', 'Sci-Fi', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Witness for the Prosecution',
+    year: 1957,
+    director: 'Billy Wilder',
+    duration: '1h 56min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Das Boot',
+    year: 1981,
+    director: 'Wolfgang Petersen',
+    duration: '2h 29min',
+    genre: [ 'Adventure', 'Drama', 'Thriller', 'War' ],
+    score: 8.4
+  },
+  {
+    title: 'Vertigo',
+    year: 2001,
+    director: 'Alfred Hitchcock',
+    duration: '2h 8min',
+    genre: [ 'Mystery', 'Romance', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'North by Northwest',
+    year: 1959,
+    director: 'Alfred Hitchcock',
+    duration: '2h 16min',
+    genre: [ 'Action', 'Adventure', 'Mystery', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Reservoir Dogs',
+    year: 1992,
+    director: 'Quentin Tarantino',
+    duration: '1h 39min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'M',
+    year: 1931,
+    director: 'Fritz Lang',
+    duration: '1h 57min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Double Indemnity',
+    year: 1944,
+    director: 'Billy Wilder',
+    duration: '1h 47min',
+    genre: [ 'Crime', 'Drama', 'Film-Noir', 'Mystery', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'Dunkirk',
+    year: 2017,
+    director: 'Christopher Nolan',
+    duration: '1h 46min',
+    genre: [ 'Action', 'Drama', 'History', 'Thriller', 'War' ],
+    score: 8.3
+  },
+  {
+    title: 'L.A. Confidential',
+    year: 1997,
+    director: 'Curtis Hanson',
+    duration: '2h 18min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'Yôjinbô',
+    year: 1961,
+    director: 'Akira Kurosawa',
+    duration: '1h 50min',
+    genre: [ 'Action', 'Drama', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'Batman Begins',
+    year: 2005,
+    director: 'Christopher Nolan',
+    duration: '2h 32min',
+    genre: [ 'Action', 'Adventure', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'Die Hard',
+    year: 1988,
+    director: 'John McTiernan',
+    duration: '2h 11min',
+    genre: [ 'Action', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Heat',
+    year: 1995,
+    director: 'Michael Mann',
+    duration: '2h 50min',
+    genre: [ 'Action', 'Crime', 'Drama', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'The Third Man',
+    year: 1949,
+    director: 'Carol Reed',
+    duration: '1h 44min',
+    genre: [ 'Film-Noir', 'Mystery', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'The Great Escape',
+    year: 1963,
+    director: 'John Sturges',
+    duration: '2h 52min',
+    genre: [ 'Adventure', 'Drama', 'History', 'Thriller', 'War' ],
+    score: 8.2
+  },
+  {
+    title: 'Chinatown',
+    year: 1974,
+    director: 'Roman Polanski',
+    duration: '2h 10min',
+    genre: [ 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'El secreto de sus ojos',
+    year: 2009,
+    director: 'Juan José Campanella',
+    duration: '2h 9min',
+    genre: [ 'Drama', 'Mystery', 'Romance', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'On the Waterfront',
+    year: 1954,
+    director: 'Elia Kazan',
+    duration: '1h 48min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Blade Runner',
+    year: 1982,
+    director: 'Ridley Scott',
+    duration: '1h 57min',
+    genre: [ 'Sci-Fi', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'V for Vendetta',
+    year: 2005,
+    director: 'James McTeigue',
+    duration: '2h 12min',
+    genre: [ 'Action', 'Drama', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Dial M for Murder',
+    year: 1954,
+    director: 'Alfred Hitchcock',
+    duration: '1h 45min',
+    genre: [ 'Crime', 'Film-Noir', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Fargo',
+    year: 1996,
+    director: 'Joel Coen',
+    duration: '1h 38min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'The Sixth Sense',
+    year: 1999,
+    director: 'M. Night Shyamalan',
+    duration: '1h 47min',
+    genre: [ 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'No Country for Old Men',
+    year: 2007,
+    director: 'Ethan Coen',
+    duration: '2h 2min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Eskiya',
+    year: 1996,
+    director: 'Yavuz Turgul',
+    duration: '2h 8min',
+    genre: [ 'Crime', 'Drama', 'Thriller' ],
+    score: 8.4
+  },
+  {
+    title: 'Rebecca',
+    year: 1940,
+    director: 'Alfred Hitchcock',
+    duration: '2h 10min',
+    genre: [ 'Drama', 'Mystery', 'Romance', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Kill Bill: Vol. 1',
+    year: 2003,
+    director: 'Quentin Tarantino',
+    duration: '1h 51min',
+    genre: [ 'Action', 'Crime', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Gone Girl',
+    year: 2014,
+    director: 'David Fincher',
+    duration: '2h 29min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Shutter Island',
+    year: 2010,
+    director: 'Martin Scorsese',
+    duration: '2h 18min',
+    genre: [ 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Logan',
+    year: 2017,
+    director: 'James Mangold',
+    duration: '2h 17min',
+    genre: [ 'Action', 'Drama', 'Sci-Fi', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Relatos salvajes',
+    year: 2014,
+    director: 'Damián Szifron',
+    duration: '2h 2min',
+    genre: [ 'Comedy', 'Drama', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'A Wednesday',
+    year: 2008,
+    director: 'Neeraj Pandey',
+    duration: '1h 44min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.3
+  },
+  {
+    title: 'Le salaire de la peur',
+    year: 1953,
+    director: 'Henri-Georges Clouzot',
+    duration: '2h 11min',
+    genre: [ 'Adventure', 'Drama', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Persona',
+    year: 1966,
+    director: 'Ingmar Bergman',
+    duration: '1h 25min',
+    genre: [ 'Drama', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Salinui chueok',
+    year: 2003,
+    director: 'Joon-ho Bong',
+    duration: '2h 11min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Mad Max: Fury Road',
+    year: 2015,
+    director: 'George Miller',
+    duration: '2h',
+    genre: [ 'Action', 'Adventure', 'Sci-Fi', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Jurassic Park',
+    year: 2000,
+    director: 'Steven Spielberg',
+    duration: '2h 7min',
+    genre: [ 'Adventure', 'Sci-Fi', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Amores perros',
+    year: 2000,
+    director: 'Alejandro González Iñárritu',
+    duration: '2h 34min',
+    genre: [ 'Drama', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Prisoners',
+    year: 2013,
+    director: 'Denis Villeneuve',
+    duration: '2h 33min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Touch of Evil',
+    year: 1958,
+    director: 'Orson Welles',
+    duration: '1h 35min',
+    genre: [ 'Crime', 'Drama', 'Film-Noir', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Les diaboliques',
+    year: 1955,
+    director: 'Henri-Georges Clouzot',
+    duration: '1h 57min',
+    genre: [ 'Crime', 'Drama', 'Horror', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Donnie Darko',
+    year: 2001,
+    director: 'Richard Kelly',
+    duration: '1h 53min',
+    genre: [ 'Drama', 'Sci-Fi', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'The Bourne Ultimatum',
+    year: 2007,
+    director: 'Paul Greengrass',
+    duration: '1h 55min',
+    genre: [ 'Action', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Jaws',
+    year: 1975,
+    director: 'Steven Spielberg',
+    duration: '2h 4min',
+    genre: [ 'Adventure', 'Drama', 'Thriller' ],
+    score: 8
+  },
+  {
+    title: 'Twelve Monkeys',
+    year: 1995,
+    director: 'Terry Gilliam',
+    duration: '2h 9min',
+    genre: [ 'Mystery', 'Sci-Fi', 'Thriller' ],
+    score: 8
+  },
+  {
+    title: 'Mou gaan dou',
+    year: 2002,
+    director: 'Wai-Keung Lau',
+    duration: '1h 41min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Sholay',
+    year: 1975,
+    director: 'Ramesh Sippy',
+    duration: '3h 18min',
+    genre: [ 'Action', 'Adventure', 'Comedy', 'Drama', 'Musical', 'Thriller' ],
+    score: 8.2
+  },
+  {
+    title: 'Ah-ga-ssi',
+    year: 2016,
+    director: 'Chan-wook Park',
+    duration: '2h 24min',
+    genre: [ 'Crime', 'Drama', 'Mystery', 'Romance', 'Thriller' ],
+    score: 8.1
+  },
+  {
+    title: 'Dog Day Afternoon',
+    year: 1975,
+    director: 'Sidney Lumet',
+    duration: '2h 5min',
+    genre: [ 'Biography', 'Crime', 'Drama', 'Thriller' ],
+    score: 8
+  }
+]</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:108:13)
+    at Object.moviesAverageByCategory (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:305:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">...AveragewithGenSum 8.28</pre></div><div class="suite-consolelog-item"><pre class="suite-consolelog-item-origin">    at log (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\src\films.js:109:13)
+    at Object.moviesAverageByCategory (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\tests\films.spec.js:305:12)
+    at Promise.then.completed (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:316:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\runTest.js:444:34)
+    at Object.worker (C:\Users\formacio\Desktop\starter-code-frontend-sprint-3-movies-main\node_modules\jest-runner\build\testWorker.js:106:12)</pre><pre class="suite-consolelog-item-message">--GenSum 546.7000000000005</pre></div></div></div></div></body></html>
